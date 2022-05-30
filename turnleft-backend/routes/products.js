@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { database } = require('../config/helpers');
+const {database} = require('../config/helpers');
 
 /* GET ALL PRODUCTS */
 router.get('/', function (req, res) {       // Sending Page Query Parameter is mandatory http://localhost:3636/api/products?page=1
@@ -31,7 +31,7 @@ router.get('/', function (req, res) {       // Sending Page Query Parameter is m
             'p.id'
         ])
         .slice(startValue, endValue)
-        .sort({ id: .1 })
+        .sort({id: .1})
         .getAll()
         .then(prods => {
             if (prods.length > 0) {
@@ -40,7 +40,7 @@ router.get('/', function (req, res) {       // Sending Page Query Parameter is m
                     products: prods
                 });
             } else {
-                res.json({ message: "No products found" });
+                res.json({message: "No products found"});
             }
         })
         .catch(err => console.log(err));
@@ -65,14 +65,14 @@ router.get('/:prodId', (req, res) => {
             'p.id',
             'p.images'
         ])
-        .filter({ 'p.id': productId })
+        .filter({'p.id': productId})
         .get()
         .then(prod => {
             console.log(prod);
             if (prod) {
                 res.status(200).json(prod);
             } else {
-                res.json({ message: `No product found with id ${productId}` });
+                res.json({message: `No product found with id ${productId}`});
             }
         }).catch(err => res.json(err));
 });
@@ -110,7 +110,7 @@ router.get('/category/:catName', (req, res) => { // Sending Page Query Parameter
             'p.id'
         ])
         .slice(startValue, endValue)
-        .sort({ id: 1 })
+        .sort({id: 1})
         .getAll()
         .then(prods => {
             if (prods.length > 0) {
@@ -119,7 +119,7 @@ router.get('/category/:catName', (req, res) => { // Sending Page Query Parameter
                     products: prods
                 });
             } else {
-                res.json({ message: `No products found matching the category ${cat_title}` });
+                res.json({message: `No products found matching the category ${cat_title}`});
             }
         }).catch(err => res.json(err));
 
